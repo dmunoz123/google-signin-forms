@@ -12,6 +12,7 @@ import {
 } from "react-native";
 import React from "react";
 import Auth from "../components/Auth";
+// import { AppleAuth } from "../components/AppleAuth.native";
 
 export default function ({ navigation }) {
   const [email, setEmail] = React.useState("");
@@ -83,6 +84,7 @@ export default function ({ navigation }) {
           </View>
           <View style={styles.googleButton}>
             <Auth />
+            {/* <AppleAuth /> */}
           </View>
           <TouchableOpacity
             style={styles.registerButton}

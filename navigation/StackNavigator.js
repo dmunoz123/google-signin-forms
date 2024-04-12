@@ -6,6 +6,7 @@ import { useNavigation } from "@react-navigation/native";
 import SplashForm from "../screens/SplashScreen";
 import LoginForm from "../screens/Login";
 import RegisterForm from "../screens/Register";
+import SignOut from "../components/SignOut";
 
 const Stack = createNativeStackNavigator();
 
@@ -34,6 +35,7 @@ export const MyStack = () => {
             fontWeight: "bold",
           },
           headerRight: () => <HeaderRightButton />,
+          headerLeft: () => <SignOut />,
         }}
       >
         <Stack.Screen name="Home" component={SplashForm} />
