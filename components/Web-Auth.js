@@ -1,6 +1,6 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
-import * as WebBrowser from "expo-web-browser";
+// import * as WebBrowser from "expo-web-browser";
 import { useNavigation } from "@react-navigation/native";
 import * as Linking from "expo-linking";
 
