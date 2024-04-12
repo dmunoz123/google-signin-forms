@@ -13,6 +13,9 @@ import {
 import React from "react";
 import Auth from "../components/Auth";
 
+//web only google auth
+import GoogleUp from "../components/Web-Auth";
+
 export default function ({ navigation }) {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
@@ -83,6 +86,7 @@ export default function ({ navigation }) {
           </View>
           <View style={styles.googleButton}>
             <Auth />
+            {/* <GoogleUp /> */}
           </View>
           <TouchableOpacity
             style={styles.registerButton}

@@ -9,7 +9,7 @@ import { supabase } from "../utils/supabase";
 
 export default function () {
   GoogleSignin.configure({
-    scopes: ["https://www.googleapis.com/auth/drive.readonly"], // what API you want to access on behalf of the user, default is email and profile
+    scopes: ["profile", "email"], // ["https://www.googleapis.com/auth/drive.readonly"] what API you want to access on behalf of the user, default is email and profile
     webClientId:
       "925865605250-25nrvo4fq7m46a2hdi9t64die92ggk2u.apps.googleusercontent.com",
   });
@@ -22,7 +22,7 @@ export default function () {
         try {
           await GoogleSignin.hasPlayServices();
           const userInfo = await GoogleSignin.signIn();
-          //console.log(JSON.stringify(userInfo, null, 2));
+          console.log(JSON.stringify(userInfo, null, 2));
           console.log(JSON.stringify(userInfo.user, null, 2));
           if (userInfo.idToken) {
             const { data, error } = await supabase.auth.signInWithIdToken({
