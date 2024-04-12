@@ -15,6 +15,7 @@ import Auth from "../components/Auth";
 
 //web only google auth
 import GoogleUp from "../components/Web-Auth";
+// import { AppleAuth } from "../components/AppleAuth.native";
 
 export default function ({ navigation }) {
   const [email, setEmail] = React.useState("");
@@ -87,6 +88,7 @@ export default function ({ navigation }) {
           <View style={styles.googleButton}>
             <Auth />
             {/* <GoogleUp /> */}
+            {/* <AppleAuth /> */}
           </View>
           <TouchableOpacity
             style={styles.registerButton}

@@ -12,6 +12,8 @@ export default function () {
     scopes: ["profile", "email"], // ["https://www.googleapis.com/auth/drive.readonly"] what API you want to access on behalf of the user, default is email and profile
     webClientId:
       "925865605250-25nrvo4fq7m46a2hdi9t64die92ggk2u.apps.googleusercontent.com",
+    iosClientId:
+      "925865605250-h1imahlr5e4ki7lr5ctfbl3bj22ojubh.apps.googleusercontent.com",
   });
 
   return (
