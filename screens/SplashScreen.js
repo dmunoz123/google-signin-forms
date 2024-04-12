@@ -17,7 +17,7 @@ export default function SplashScreen({ navigation }) {
         imageStyle={{ resizeMode: "cover", alignSelf: "flex-start" }}
       >
         <Text style={styles.greetingText}>
-          Good afternoon Jesuit community at LMU, today is Friday, March 22nd.
+          Good afternoon Jesuit community at LMU, today is Friday, April 12th.
           Here are the forms for the day!
         </Text>
       </ImageBackground>
@@ -25,33 +25,30 @@ export default function SplashScreen({ navigation }) {
       <View style={styles.formsContainer}>
         <TouchableOpacity
           style={styles.buttonStyle}
-          onPress={() => navigation.navigate("MeetingMinutes")}
+          onPress={() => navigation.navigate("MealSignIn")}
         >
-          <Text style={styles.buttonText}>Consultor Meeting Minutes Form</Text>
+          <Text style={styles.buttonText}>Meal Sign In/Out</Text>
         </TouchableOpacity>
+
         <TouchableOpacity
           style={styles.buttonStyle}
-          onPress={() => navigation.navigate("SundayScheduleForm")}
+          onPress={() => navigation.navigate("CarService")}
         >
-          <Text style={styles.buttonText}>Sunday Presiders</Text>
+          <Text style={styles.buttonText}>Car Service Request</Text>
         </TouchableOpacity>
+
         <TouchableOpacity
           style={styles.buttonStyle}
-          onPress={() => navigation.navigate("JesuitScheduleForm")}
+          onPress={() => navigation.navigate("PersonalService")}
         >
-          <Text style={styles.buttonText}>Jesuit Presiders</Text>
+          <Text style={styles.buttonText}>Personal Service Request</Text>
         </TouchableOpacity>
+
         <TouchableOpacity
           style={styles.buttonStyle}
-          onPress={() => navigation.navigate("UserList")}
+          onPress={() => console.log("Functionality in progress")}
         >
-          <Text style={styles.buttonText}>Community Members</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.buttonStyle}
-          onPress={() => navigation.navigate("RoleList")}
-        >
-          <Text style={styles.buttonText}>Community Role</Text>
+          <Text style={styles.buttonText}>Funeral Directive</Text>
         </TouchableOpacity>
       </View>
     </ScrollView>
