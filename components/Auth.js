@@ -3,6 +3,9 @@ import {
   GoogleSigninButton,
   statusCodes,
 } from "@react-native-google-signin/google-signin";
+import { Button } from "react-native";
+
+import { supabase } from "../utils/supabase";
 
 export default function () {
   GoogleSignin.configure({
@@ -19,7 +22,17 @@ export default function () {
         try {
           await GoogleSignin.hasPlayServices();
           const userInfo = await GoogleSignin.signIn();
-          console.log(JSON.stringify(userInfo, null, 2));
+          //console.log(JSON.stringify(userInfo, null, 2));
+          console.log(JSON.stringify(userInfo.user, null, 2));
+          if (userInfo.idToken) {
+            const { data, error } = await supabase.auth.signInWithIdToken({
+              provider: "google",
+              token: userInfo.idToken,
+            });
+            console.log(error, data);
+          } else {
+            throw new Error("no id token present");
+          }
         } catch (error) {
           if (error.code === statusCodes.SIGN_IN_CANCELLED) {
             // user cancelled the login flow
@@ -32,6 +45,6 @@ export default function () {
           }
         }
       }}
-    />
+    ></GoogleSigninButton>
   );
 }
