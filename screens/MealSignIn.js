@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import { View, Text, StyleSheet, Button } from "react-native";
 import { useForm, Controller } from "react-hook-form";
 import { Calendar } from "react-native-calendars";
-import CheckBox from "@react-native-community/checkbox";
+import BouncyCheckbox from "react-native-bouncy-checkbox";
 
 export default function MealSignIn() {
-  const { control, handleSubmit, watch } = useForm({
+  const { control, handleSubmit, watch, setValue } = useForm({
     defaultValues: {
-      attendingMeals: null, // Defaulting to 'no' for demonstration
+      attendingMeals: null, // Initial state with no selection
     },
   });
   const [selectedDates, setSelectedDates] = useState({});
@@ -40,18 +40,28 @@ export default function MealSignIn() {
           name="attendingMeals"
           render={({ field: { onChange, value } }) => (
             <>
-              <CheckBox
-                value={value === "yes"}
-                onValueChange={(newValue) => onChange(newValue ? "yes" : "no")}
+              <BouncyCheckbox
+                isChecked={value === "yes"}
+                fillColor="#4CAF50"
+                unfillColor="#FFFFFF"
+                text="Yes"
+                textStyle={styles.label}
+                onPress={(isChecked) => {
+                  setValue("attendingMeals", isChecked ? "yes" : null);
+                }}
                 style={styles.checkbox}
               />
-              <Text style={styles.label}>Yes</Text>
-              <CheckBox
-                value={value === "no"}
-                onValueChange={(newValue) => onChange(newValue ? "no" : "yes")}
+              <BouncyCheckbox
+                isChecked={value === "no"}
+                fillColor="#FF5252"
+                unfillColor="#FFFFFF"
+                text="No"
+                textStyle={styles.label}
+                onPress={(isChecked) => {
+                  setValue("attendingMeals", isChecked ? "no" : null);
+                }}
                 style={styles.checkbox}
               />
-              <Text style={styles.label}>No</Text>
             </>
           )}
         />
@@ -80,11 +90,14 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     marginBottom: 20,
+    width: "100%", // Ensuring full width for better layout
   },
   checkbox: {
-    marginHorizontal: 8,
+    flex: 1, // Allow each checkbox to take equal space
+    padding: 10,
   },
   label: {
     fontSize: 16,
+    marginLeft: 10, // Add some space between the checkbox and the label
   },
 });
