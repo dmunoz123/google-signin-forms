@@ -8,10 +8,10 @@ import {
   Button,
 } from "react-native";
 import { useForm, Controller } from "react-hook-form";
-import CheckBox from "@react-native-community/checkbox";
+import BouncyCheckbox from "react-native-bouncy-checkbox";
 
 const CarServiceRequest = () => {
-  const { control, handleSubmit, watch } = useForm({
+  const { control, handleSubmit, setValue } = useForm({
     defaultValues: {
       flatTire: false,
       checkEngineLight: false,
@@ -27,36 +27,40 @@ const CarServiceRequest = () => {
     console.log(data);
   };
 
+  const issues = [
+    { name: "flatTire", label: "Flat Tire" },
+    { name: "checkEngineLight", label: "Check Engine Light On" },
+    { name: "headlightsNotFunctional", label: "Headlights Not Functional" },
+    { name: "oilChange", label: "Oil Change" },
+    { name: "brakesIssue", label: "Brakes Issue" },
+    { name: "batteryProblem", label: "Battery Problem" },
+    { name: "airConditioning", label: "Air Conditioning Not Working" },
+    { name: "engineOverheating", label: "Engine Overheating" },
+  ];
+
   return (
     <ScrollView style={styles.container}>
       <Text style={styles.title}>Car Service Request</Text>
       <View style={styles.formGroup}>
-        {[
-          { name: "flatTire", label: "Flat Tire" },
-          { name: "checkEngineLight", label: "Check Engine Light On" },
-          {
-            name: "headlightsNotFunctional",
-            label: "Headlights Not Functional",
-          },
-          { name: "oilChange", label: "Oil Change" },
-          { name: "brakesIssue", label: "Brakes Issue" },
-          { name: "batteryProblem", label: "Battery Problem" },
-          { name: "airConditioning", label: "Air Conditioning Not Working" },
-          { name: "engineOverheating", label: "Engine Overheating" },
-        ].map((item, index) => (
+        {issues.map((item, index) => (
           <View key={index} style={styles.checkboxContainer}>
             <Controller
               control={control}
               name={item.name}
               render={({ field: { onChange, value } }) => (
-                <CheckBox
-                  value={value}
-                  onValueChange={(newValue) => onChange(newValue)}
+                <BouncyCheckbox
+                  isChecked={value}
+                  fillColor="#0F9D58"
+                  unfillColor="#FFFFFF"
+                  text={item.label}
+                  textStyle={styles.label}
+                  onPress={(isChecked) => {
+                    setValue(item.name, isChecked);
+                  }}
                   style={styles.checkbox}
                 />
               )}
             />
-            <Text style={styles.label}>{item.label}</Text>
           </View>
         ))}
       </View>
@@ -105,6 +109,7 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 16,
+    marginLeft: 10, // Added some margin to align text nicely next to the checkbox
   },
   question: {
     fontSize: 16,

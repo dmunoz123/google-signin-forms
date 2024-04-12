@@ -8,10 +8,10 @@ import {
   Button,
 } from "react-native";
 import { useForm, Controller } from "react-hook-form";
-import CheckBox from "@react-native-community/checkbox";
+import BouncyCheckbox from "react-native-bouncy-checkbox";
 
 const PersonalServiceRequest = () => {
-  const { control, handleSubmit, watch, setValue } = useForm({
+  const { control, handleSubmit, setValue, watch } = useForm({
     defaultValues: {
       lightsFlickering: false,
       acNotWorking: false,
@@ -72,61 +72,38 @@ const PersonalServiceRequest = () => {
   return (
     <ScrollView style={styles.container}>
       <Text style={styles.title}>Personal Service Request</Text>
-      <View style={styles.formGroup}>
-        {issues.map((item, index) => (
-          <View key={index} style={styles.formControl}>
-            <View style={styles.checkboxContainer}>
-              <Controller
-                control={control}
-                name={item.name}
-                render={({ field: { onChange, value } }) => (
-                  <CheckBox
-                    value={value}
-                    onValueChange={(newValue) => {
-                      onChange(newValue);
-                      // Automatically hide the text input when the checkbox is unchecked
-                      if (!newValue) setValue(item.detailName, "");
-                    }}
-                    style={styles.checkbox}
-                  />
-                )}
-              />
-              <Text style={styles.label}>{item.label}</Text>
-            </View>
-            {watch(item.name) && (
-              <Controller
-                control={control}
-                name={item.detailName}
-                render={({ field: { onChange, value } }) => (
+      {issues.map((item, index) => (
+        <View key={index} style={styles.formControl}>
+          <Controller
+            control={control}
+            name={item.name}
+            render={({ field: { onChange, value } }) => (
+              <>
+                <BouncyCheckbox
+                  isChecked={!!value}
+                  fillColor="#0F9D58"
+                  unfillColor="#FFFFFF"
+                  text={item.label}
+                  textStyle={styles.label}
+                  onPress={(isChecked) => {
+                    setValue(item.name, isChecked);
+                    if (!isChecked) setValue(item.detailName, "");
+                  }}
+                  style={styles.checkbox}
+                />
+                {value && (
                   <TextInput
                     style={styles.textInput}
-                    onChangeText={onChange}
-                    value={value}
+                    onChangeText={(text) => setValue(item.detailName, text)}
+                    value={watch(item.detailName)}
                     placeholder="Feel free to explain more here"
                   />
                 )}
-              />
+              </>
             )}
-          </View>
-        ))}
-      </View>
-      <Text style={styles.question}>
-        Any other issues not previously listed?
-      </Text>
-      <Controller
-        control={control}
-        name="otherIssues"
-        render={({ field: { onChange, value } }) => (
-          <TextInput
-            style={styles.textInputLarge}
-            onChangeText={onChange}
-            value={value}
-            multiline
-            numberOfLines={4}
-            placeholder="Please describe any other issues..."
           />
-        )}
-      />
+        </View>
+      ))}
       <Button title="Submit" onPress={handleSubmit(onSubmit)} />
     </ScrollView>
   );
